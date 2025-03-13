@@ -1,5 +1,6 @@
 package br.com.flexpag.desafio.model;
 
+import br.com.flexpag.desafio.dto.PaymentDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,7 +24,13 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private BigDecimal value;
+    private BigDecimal amount;
     private LocalDateTime dateTime;
     private PaymentStatus status;
+
+    public Payment(PaymentDTO dto){
+        this.amount = dto.value();
+        this.dateTime = LocalDateTime.now();
+        this.status = PaymentStatus.PENDING;
+    }
 }

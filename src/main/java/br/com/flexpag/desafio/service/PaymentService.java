@@ -26,6 +26,9 @@ public class PaymentService {
 
     public Payment changeDate(ChangeDateDTO dto, Long id) {
         Payment payment = paymentRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Payment not found"));
+        if(payment.getStatus().equals(PaymentStatus.PAID)){
+            throw new IllegalStateException("Cannot change payments that are already paid");
+        }
         payment.setDateTime(dto.dateTime());
         return payment;
     }
@@ -39,6 +42,10 @@ public class PaymentService {
     public void excludePayment(Long id) {
         if(!paymentRepository.existsById(id)){
             throw new EntityNotFoundException("Payment not found");
+        }
+        Payment payment = paymentRepository.getReferenceById(id);
+        if(payment.getStatus().equals(PaymentStatus.PAID)){
+            throw new IllegalStateException("Cannot change payments that are already paid");
         }
         paymentRepository.deleteById(id);
     }

@@ -20,4 +20,8 @@ public class PaymentService {
         Payment payment = new Payment(dto);
         return paymentRepository.save(payment);
     }
+
+    public Payment consultStatus(Long id) {
+        return paymentRepository.findById(id).orElseThrow();
+    }
 }

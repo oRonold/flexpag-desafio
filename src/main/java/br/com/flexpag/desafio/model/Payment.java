@@ -30,7 +30,7 @@ public class Payment {
 
     public Payment(PaymentDTO dto){
         this.amount = dto.value();
-        this.dateTime = LocalDateTime.now();
+        this.dateTime = dto.dateTime();
         this.status = PaymentStatus.PENDING;
     }
 }

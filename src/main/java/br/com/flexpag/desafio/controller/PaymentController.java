@@ -35,6 +35,13 @@ public class PaymentController {
         return ResponseEntity.ok(new StatusDetailsDTO(payment));
     }
 
+    @PutMapping("/pay-amount/{id}")
+    @Transactional
+    public ResponseEntity<PaymentDetailsDTO> payAmount(@PathVariable Long id){
+        Payment payment = paymentService.payAmount(id);
+        return ResponseEntity.ok(new PaymentDetailsDTO(payment));
+    }
+
     @PutMapping("/change-date/{id}")
     @Transactional
     public ResponseEntity<PaymentDetailsDTO> changeDate(@RequestBody ChangeDateDTO dto, @PathVariable Long id){

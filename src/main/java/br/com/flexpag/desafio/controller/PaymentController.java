@@ -41,4 +41,11 @@ public class PaymentController {
         Payment payment = paymentService.changeDate(dto, id);
         return ResponseEntity.ok(new PaymentDetailsDTO(payment));
     }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<Void> excludePayment(@PathVariable Long id){
+        paymentService.excludePayment(id);
+        return ResponseEntity.noContent().build();
+    }
 }

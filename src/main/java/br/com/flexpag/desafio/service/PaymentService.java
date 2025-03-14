@@ -1,5 +1,6 @@
 package br.com.flexpag.desafio.service;
 
+import br.com.flexpag.desafio.dto.ChangeDateDTO;
 import br.com.flexpag.desafio.dto.PaymentDTO;
 import br.com.flexpag.desafio.model.Payment;
 import br.com.flexpag.desafio.repository.PaymentRepository;
@@ -23,5 +24,11 @@ public class PaymentService {
 
     public Payment consultStatus(Long id) {
         return paymentRepository.findById(id).orElseThrow();
+    }
+
+    public Payment changeDate(ChangeDateDTO dto, Long id) {
+        Payment payment = paymentRepository.findById(id).orElseThrow();
+        payment.setDateTime(dto.dateTime());
+        return payment;
     }
 }

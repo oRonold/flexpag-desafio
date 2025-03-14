@@ -1,5 +1,6 @@
 package br.com.flexpag.desafio.controller;
 
+import br.com.flexpag.desafio.dto.ChangeDateDTO;
 import br.com.flexpag.desafio.dto.PaymentDTO;
 import br.com.flexpag.desafio.dto.PaymentDetailsDTO;
 import br.com.flexpag.desafio.dto.StatusDetailsDTO;
@@ -32,5 +33,12 @@ public class PaymentController {
     public ResponseEntity<StatusDetailsDTO> consultStatus(@PathVariable Long id){
         Payment payment = paymentService.consultStatus(id);
         return ResponseEntity.ok(new StatusDetailsDTO(payment));
+    }
+
+    @PutMapping("/change-date/{id}")
+    @Transactional
+    public ResponseEntity<PaymentDetailsDTO> changeDate(@RequestBody ChangeDateDTO dto, @PathVariable Long id){
+        Payment payment = paymentService.changeDate(dto, id);
+        return ResponseEntity.ok(new PaymentDetailsDTO(payment));
     }
 }
